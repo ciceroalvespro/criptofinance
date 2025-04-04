@@ -477,6 +477,16 @@ const HomePage: React.FC = () => {
           <CertificationBadge>Certified DeFi Expert (CDE)</CertificationBadge>
         </Certification>
 
+        <AboutSection id="sobre">
+          <AboutContent>
+            <AboutTitle>Certified DeFi Expert (CDE) : Expertise em DeFi e Mercados Financeiros</AboutTitle>
+            <AboutDescription>
+              Nossos analistas possuem uma vasta experiência de mais de 5 anos atuando em diversos mercados financeiros e tecnológicos, o que nos proporciona uma visão estratégica, integrada e multidisciplinar. Além disso, somos certificados pela Blockchain Council como Certified DeFi Expert (CDE), o que comprova nosso profundo conhecimento em finanças descentralizadas, segurança blockchain e estratégias avançadas de investimento no ecossistema DeFi.
+            </AboutDescription>
+            <AboutButton href="#contato" onClick={handleScrollToContact}>Fale Conosco</AboutButton>
+          </AboutContent>
+        </AboutSection>
+
         <ContactSection id="contato">
           <ContactContainer>
             <ContactTitle>Vamos Conversar</ContactTitle>
