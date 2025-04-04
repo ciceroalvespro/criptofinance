@@ -180,6 +180,68 @@ const CertificationBadge = styled.div`
   box-shadow: 0 4px 6px rgba(26, 35, 126, 0.2);
 `;
 
+const AboutSection = styled.section`
+  padding: 4rem 0;
+  background: linear-gradient(135deg, 
+    rgba(26, 35, 126, 0.1) 0%,
+    rgba(13, 71, 161, 0.1) 50%,
+    rgba(255, 107, 0, 0.1) 100%
+  );
+  margin-top: 4rem;
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  scroll-margin-top: 100px;
+`;
+
+const AboutContent = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const AboutTitle = styled.h2`
+  font-size: 2.5rem;
+  color: #1a237e;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+
+const AboutDescription = styled.p`
+  font-size: 1.2rem;
+  color: #2c3e50;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+`;
+
+const AboutButton = styled.a`
+  background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(26, 35, 126, 0.2);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(26, 35, 126, 0.3);
+  }
+`;
+
 const Footer = styled.footer`
   background: rgba(13, 17, 62, 0.95);
   backdrop-filter: blur(8px);
