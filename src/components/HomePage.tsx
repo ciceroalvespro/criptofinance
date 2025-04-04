@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import ServiceCard from './ServiceCard';
 import Navbar from './Navbar';
-import { FaInstagram, FaTwitter, FaGithub } from 'react-icons/fa';
+import { FaInstagram, FaTwitter, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { IconType } from 'react-icons';
 
 const Container = styled.div`
   max-width: 1200px;
@@ -68,20 +69,20 @@ const HeroContent = styled.div`
 `;
 
 const HeroTitle = styled.h1`
-  font-size: 3.5rem;
+  font-size: 4rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
   text-align: center;
-  line-height: 1.2;
+  line-height: 1.1;
   color: #000000;
 `;
 
 const HeroSubtitle = styled.h2`
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   text-align: center;
-  line-height: 1.2;
+  line-height: 1.1;
   background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -223,6 +224,37 @@ const LogoPart = styled.span<{ color: string }>`
 const CompanyDescription = styled.p`
   line-height: 1.6;
   opacity: 0.9;
+  margin-bottom: 1.5rem;
+`;
+
+const SocialIcons = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+`;
+
+const SocialIcon = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #1a237e;
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    background: #0d47a1;
+  }
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const QuickLinks = styled.div`
@@ -245,7 +277,7 @@ const LinkItem = styled.li`
   margin-bottom: 0.8rem;
 `;
 
-const Link = styled.a`
+const StyledLink = styled.a`
   color: white;
   text-decoration: none;
   opacity: 0.9;
@@ -375,6 +407,12 @@ const SubmitButton = styled.button`
   }
 `;
 
+const IconComponent: React.FC<{ icon: IconType }> = ({ icon: Icon }) => {
+  if (!Icon) return null;
+  const IconElement = Icon as React.ComponentType<{ size?: number }>;
+  return <IconElement size={20} />;
+};
+
 const HomePage: React.FC = () => {
   const services = [
     {
@@ -390,21 +428,6 @@ const HomePage: React.FC = () => {
       description: "Ensino desde o básico até estratégias avançadas para quem deseja entrar no universo da renda passiva digital."
     }
   ];
-
-  const handleScrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    e.preventDefault();
-    const section = document.getElementById(sectionId);
-    if (section) {
-      const yOffset = -80;
-      const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-  };
 
   const handleScrollToContact = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -488,12 +511,34 @@ const HomePage: React.FC = () => {
             <CompanyDescription>
               Empresa especializada em Finanças Descentralizadas e Blockchain, fornecendo orientação estratégica para empresas e indivíduos que desejam navegar com segurança neste novo paradigma financeiro.
             </CompanyDescription>
+            <SocialIcons>
+              <SocialIcon href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                <IconWrapper>
+                  <IconComponent icon={FaLinkedin} />
+                </IconWrapper>
+              </SocialIcon>
+              <SocialIcon href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <IconWrapper>
+                  <IconComponent icon={FaInstagram} />
+                </IconWrapper>
+              </SocialIcon>
+              <SocialIcon href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                <IconWrapper>
+                  <IconComponent icon={FaTwitter} />
+                </IconWrapper>
+              </SocialIcon>
+              <SocialIcon href="https://github.com" target="_blank" rel="noopener noreferrer">
+                <IconWrapper>
+                  <IconComponent icon={FaGithub} />
+                </IconWrapper>
+              </SocialIcon>
+            </SocialIcons>
           </CompanyInfo>
           <QuickLinks>
             <QuickLinksTitle>Links Rápidos</QuickLinksTitle>
             <LinkList>
               <LinkItem>
-                <Link 
+                <StyledLink 
                   href="#inicio" 
                   onClick={(e) => {
                     e.preventDefault();
@@ -501,10 +546,10 @@ const HomePage: React.FC = () => {
                   }}
                 >
                   Início
-                </Link>
+                </StyledLink>
               </LinkItem>
               <LinkItem>
-                <Link 
+                <StyledLink 
                   href="#servicos" 
                   onClick={(e) => {
                     e.preventDefault();
@@ -517,10 +562,10 @@ const HomePage: React.FC = () => {
                   }}
                 >
                   Sobre
-                </Link>
+                </StyledLink>
               </LinkItem>
               <LinkItem>
-                <Link 
+                <StyledLink 
                   href="#contato" 
                   onClick={(e) => {
                     e.preventDefault();
@@ -533,7 +578,7 @@ const HomePage: React.FC = () => {
                   }}
                 >
                   Contato
-                </Link>
+                </StyledLink>
               </LinkItem>
             </LinkList>
           </QuickLinks>

@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
-import { FaInstagram, FaTwitter, FaGithub } from 'react-icons/fa';
+import { FaInstagram, FaTwitter, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { IconType } from 'react-icons';
 
 const Container = styled.div`
   max-width: 1200px;
@@ -138,7 +139,44 @@ const LogoPart = styled.span<{ color: string }>`
 const CompanyDescription = styled.p`
   line-height: 1.6;
   opacity: 0.9;
+  margin-bottom: 1.5rem;
 `;
+
+const SocialIcons = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+`;
+
+const SocialIcon = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #1a237e;
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    background: #0d47a1;
+  }
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const IconComponent: React.FC<{ icon: IconType }> = ({ icon: Icon }) => {
+  if (!Icon) return null;
+  const IconElement = Icon as React.ComponentType<{ size?: number }>;
+  return <IconElement size={20} />;
+};
 
 const QuickLinks = styled.div`
   display: flex;
@@ -184,21 +222,6 @@ const Copyright = styled.div`
 `;
 
 const MarketPage: React.FC = () => {
-  const handleScrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    e.preventDefault();
-    const section = document.getElementById(sectionId);
-    if (section) {
-      const yOffset = -80;
-      const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-  };
-
   return (
     <div>
       <Navbar />
@@ -228,6 +251,28 @@ const MarketPage: React.FC = () => {
             <CompanyDescription>
               Empresa especializada em Finanças Descentralizadas e Blockchain, fornecendo orientação estratégica para empresas e indivíduos que desejam navegar com segurança neste novo paradigma financeiro.
             </CompanyDescription>
+            <SocialIcons>
+              <SocialIcon href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                <IconWrapper>
+                  <IconComponent icon={FaLinkedin} />
+                </IconWrapper>
+              </SocialIcon>
+              <SocialIcon href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <IconWrapper>
+                  <IconComponent icon={FaInstagram} />
+                </IconWrapper>
+              </SocialIcon>
+              <SocialIcon href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                <IconWrapper>
+                  <IconComponent icon={FaTwitter} />
+                </IconWrapper>
+              </SocialIcon>
+              <SocialIcon href="https://github.com" target="_blank" rel="noopener noreferrer">
+                <IconWrapper>
+                  <IconComponent icon={FaGithub} />
+                </IconWrapper>
+              </SocialIcon>
+            </SocialIcons>
           </CompanyInfo>
           <QuickLinks>
             <QuickLinksTitle>Links Rápidos</QuickLinksTitle>
