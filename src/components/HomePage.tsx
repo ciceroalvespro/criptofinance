@@ -69,57 +69,57 @@ const HeroContent = styled.div`
 
 const HeroTitle = styled.h1`
   font-size: 3.5rem;
-  font-weight: 800;
-  line-height: 1.2;
+  font-weight: 700;
   margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
+  text-align: center;
+  line-height: 1.2;
+  color: #000000;
 `;
 
-const HeroSubtitle = styled.p`
-  font-size: 1.4rem;
-  color: #2c3e50;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: 400;
+const HeroSubtitle = styled.h2`
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 const HeroDescription = styled.p`
-  font-size: 1.1rem;
-  color: #666;
-  line-height: 1.8;
-  margin-bottom: 3rem;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: 300;
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
+  max-width: 600px;
+  line-height: 1.6;
 `;
 
 const HeroButton = styled.a`
   background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
   color: white;
-  padding: 1rem 2rem;
+  padding: 1.2rem 3rem;
   border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: 600;
+  border-radius: 25px;
+  font-size: 1.2rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
   text-decoration: none;
   display: inline-block;
+  margin-top: 2rem;
+  box-shadow: 0 4px 15px rgba(26, 35, 126, 0.3);
+  position: relative;
+  z-index: 10;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(26, 35, 126, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(26, 35, 126, 0.4);
+  }
+
+  &:active {
+    transform: translateY(-1px);
   }
 `;
 
@@ -208,14 +208,16 @@ const CompanyInfo = styled.div`
   max-width: 500px;
 `;
 
-const CompanyName = styled.h3`
-  font-size: 1.8rem;
+const CompanyName = styled.div`
+  font-size: 1.5rem;
+  font-weight: bold;
   margin-bottom: 1rem;
-  font-weight: 600;
-  background: linear-gradient(135deg, #1a237e 0%, #0d47a1 50%, #ff6b00 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 0.5rem;
+`;
+
+const LogoPart = styled.span<{ color: string }>`
+  color: ${props => props.color};
 `;
 
 const CompanyDescription = styled.p`
@@ -404,35 +406,30 @@ const HomePage: React.FC = () => {
     }
   };
 
+  const handleScrollToContact = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const section = document.getElementById('contato');
+    if (section) {
+      const yOffset = -80;
+      const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
   return (
     <div>
       <Navbar />
       <HeroSection>
         <HeroContent>
-          <HeroTitle>
-            Transforme seus Investimentos Cripto
-          </HeroTitle>
-          <HeroSubtitle>
-            Estratégias profissionais para maximizar seus retornos
-          </HeroSubtitle>
+          <HeroTitle>Transforme seus</HeroTitle>
+          <HeroSubtitle>Investimentos Cripto</HeroSubtitle>
+          <HeroTitle>com estratégias</HeroTitle>
+          <HeroTitle>profissionais</HeroTitle>
           <HeroDescription>
             Empresa especializada em provisão de liquidez e gestão estratégica de ativos digitais, 
-            oferecendo soluções personalizadas para otimizar seu portfólio com segurança e inteligência.
+            oferecendo soluções personalizadas para maximizar seus retornos no mercado cripto.
           </HeroDescription>
-          <HeroButton 
-            href="#contato" 
-            onClick={(e) => {
-              e.preventDefault();
-              const section = document.getElementById('contato');
-              if (section) {
-                const yOffset = -80;
-                const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                window.scrollTo({ top: y, behavior: 'smooth' });
-              }
-            }}
-          >
-            Comece Agora
-          </HeroButton>
+          <HeroButton href="#contato" onClick={handleScrollToContact}>Comece Agora</HeroButton>
         </HeroContent>
       </HeroSection>
       
@@ -484,7 +481,10 @@ const HomePage: React.FC = () => {
       <Footer>
         <FooterContent>
           <CompanyInfo>
-            <CompanyName>CriptoFinance</CompanyName>
+            <CompanyName>
+              <LogoPart color="#1a237e">Cripto</LogoPart>
+              <LogoPart color="#ff6b00">Finance</LogoPart>
+            </CompanyName>
             <CompanyDescription>
               Empresa especializada em Finanças Descentralizadas e Blockchain, fornecendo orientação estratégica para empresas e indivíduos que desejam navegar com segurança neste novo paradigma financeiro.
             </CompanyDescription>
