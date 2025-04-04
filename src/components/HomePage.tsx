@@ -468,9 +468,11 @@ const HomePage: React.FC = () => {
         </ServicesContainer>
 
         <Certification>
-          <CertificationTitle>Expertise em DeFi e Mercados Financeiros</CertificationTitle>
+          <CertificationTitle>Certificação Profissional</CertificationTitle>
           <CertificationText>
-            Nossos analistas possuem uma vasta experiência de mais de 5 anos atuando em diversos mercados financeiros e tecnológicos, o que nos proporciona uma visão estratégica, integrada e multidisciplinar. Além disso, somos certificados pela Blockchain Council como Certified DeFi Expert (CDE), o que comprova nosso profundo conhecimento em finanças descentralizadas, segurança blockchain e estratégias avançadas de investimento no ecossistema DeFi.
+            Nossa equipe é certificada pela Blockchain Council como Certified DeFi Expert (CDE), 
+            demonstrando profundo conhecimento em finanças descentralizadas, segurança blockchain 
+            e estratégias de investimento em DeFi.
           </CertificationText>
           <CertificationBadge>Certified DeFi Expert (CDE)</CertificationBadge>
         </Certification>
