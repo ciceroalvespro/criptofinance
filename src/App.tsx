@@ -1,8 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from './components/HomePage';
-import MarketPage from './components/MarketPage';
+import { Routes, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
+import HomePage from './components/HomePage';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -12,29 +11,22 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
+    font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #f8f9fa;
-    color: #1a237e;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    background-color: #f5f5f5;
   }
 `;
 
-function App() {
+const App: React.FC = () => {
   return (
     <>
       <GlobalStyle />
-      <Router>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/mercado" element={<MarketPage />} />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
     </>
   );
-}
+};
 
 export default App;
