@@ -1,46 +1,90 @@
-# Getting Started with Create React App
+# CriptoFinance
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Projeto web desenvolvido com React e TypeScript para a CriptoFinance, uma empresa especializada em Finanças Descentralizadas e Blockchain.
 
-## Available Scripts
+## Tecnologias Utilizadas
 
-In the project directory, you can run:
+- React
+- TypeScript
+- Styled Components
+- React Router
+- React Icons
 
-### `npm start`
+## Estrutura do Projeto
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+criptofinance/
+├── public/          # Arquivos públicos
+├── src/             # Código fonte
+│   ├── components/  # Componentes React
+│   ├── styles/      # Estilos globais
+│   └── App.tsx      # Componente principal
+├── package.json     # Dependências e scripts
+└── tsconfig.json    # Configuração TypeScript
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Como Executar o Projeto
 
-### `npm test`
+1. Instale as dependências:
+```bash
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Inicie o servidor de desenvolvimento:
+```bash
+npm start
+```
 
-### `npm run build`
+3. Acesse o projeto em:
+```
+http://localhost:3000
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Funcionalidades
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Página inicial institucional
+- Navegação suave
+- Design responsivo
+- Seções:
+  - Hero
+  - Sobre
+  - Serviços
+  - Diferenciais
+  - CTA
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Links Importantes
 
-### `npm run eject`
+- Instagram: [@criptofinanc](https://www.instagram.com/criptofinanc/)
+- GitHub: [criptofinance](https://github.com/ciceroalvespro/criptofinance)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Desenvolvimento
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Para fazer alterações no projeto:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Crie uma nova branch:
+```bash
+git checkout -b feature/nova-funcionalidade
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+2. Faça suas alterações e commit:
+```bash
+git add .
+git commit -m "Descrição das alterações"
+```
 
-## Learn More
+3. Push para o GitHub:
+```bash
+git push origin feature/nova-funcionalidade
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Backup
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+O projeto está versionado no GitHub e localmente. Para fazer backup adicional:
+
+1. Copie a pasta do projeto para um local seguro
+2. Mantenha uma cópia do arquivo package.json e package-lock.json
+3. Em caso de restauração, execute:
+```bash
+npm install
+npm start
+```
