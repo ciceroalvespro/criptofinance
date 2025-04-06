@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Navbar from './Navbar';
 import { FaInstagram, FaTwitter, FaGithub, FaLinkedin, FaChartLine, FaWallet, FaDatabase, FaGraduationCap } from 'react-icons/fa';
 import { IconType } from 'react-icons';
 import { Link } from 'react-router-dom';
@@ -76,7 +75,7 @@ const HeroButtons = styled.div`
   }
 `;
 
-const HeroButton = styled.button<{ primary?: boolean }>`
+const HeroButton = styled(Link)<{ primary?: boolean }>`
   padding: 1rem 2.5rem;
   font-size: 1.1rem;
   border-radius: 8px;
@@ -85,6 +84,8 @@ const HeroButton = styled.button<{ primary?: boolean }>`
   background: ${props => props.primary ? '#ff6b00' : 'transparent'};
   color: white;
   border: ${props => props.primary ? 'none' : '2px solid white'};
+  text-decoration: none;
+  display: inline-block;
 
   &:hover {
     transform: translateY(-2px);
@@ -341,9 +342,7 @@ const HomePage: React.FC = () => {
   const handleScrollToContact = () => {
     const contactSection = document.getElementById('contato');
     if (contactSection) {
-      const yOffset = -80;
-      const y = contactSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      contactSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -358,18 +357,15 @@ const HomePage: React.FC = () => {
 
   return (
     <div>
-      <Navbar />
       <HeroSection>
         <HeroContent>
-          <HeroTitle>Cripto Finance</HeroTitle>
-          <HeroSubtitle>Finanças Descentralizadas e Inteligência On-Chain</HeroSubtitle>
+          <HeroTitle>CriptoFinance</HeroTitle>
+          <HeroSubtitle>
+            Sua plataforma completa para análise e investimento em criptomoedas
+          </HeroSubtitle>
           <HeroButtons>
-            <HeroButton onClick={handleScrollToServices}>
-              Conheça nossos serviços
-            </HeroButton>
-            <HeroButton primary onClick={handleScrollToContact}>
-              Fale com um consultor
-            </HeroButton>
+            <HeroButton to="/market">Explorar Mercado</HeroButton>
+            <HeroButton to="/portfolio">Gerenciar Portfólio</HeroButton>
           </HeroButtons>
         </HeroContent>
       </HeroSection>
