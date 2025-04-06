@@ -9,6 +9,10 @@ interface SearchBarProps {
 const SearchContainer = styled.div`
   position: relative;
   margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const SearchInput = styled.input`
@@ -21,6 +25,11 @@ const SearchInput = styled.input`
   font-size: 1rem;
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
+
+  @media (max-width: 768px) {
+    padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+    font-size: 0.9rem;
+  }
 
   &::placeholder {
     color: rgba(255, 255, 255, 0.5);
@@ -39,6 +48,12 @@ const SearchIcon = styled(Search)`
   top: 50%;
   transform: translateY(-50%);
   color: rgba(255, 255, 255, 0.5);
+
+  @media (max-width: 768px) {
+    left: 0.75rem;
+    width: 18px;
+    height: 18px;
+  }
 `;
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {

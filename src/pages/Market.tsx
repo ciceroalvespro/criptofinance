@@ -26,6 +26,10 @@ const ContentContainer = styled.div`
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const MarketTitle = styled.h1`
@@ -33,13 +37,19 @@ const MarketTitle = styled.h1`
   margin-bottom: 2rem;
   color: #fff;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const LoadingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 400px;
+  min-height: calc(100vh - 80px); // Subtrair a altura do Navbar
+  width: 100%;
 `;
 
 const LoadingSpinner = styled.div`
@@ -49,6 +59,12 @@ const LoadingSpinner = styled.div`
   border-top-color: #ff6b00;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+  }
 
   @keyframes spin {
     to {
@@ -65,6 +81,12 @@ const ErrorMessage = styled.div`
   font-size: 1rem;
   background: rgba(255, 77, 77, 0.1);
   border-radius: 8px;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: 0.75rem;
+    margin: 0.75rem 0;
+  }
 `;
 
 const Market: React.FC = () => {
