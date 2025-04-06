@@ -21,7 +21,7 @@ interface CryptoTableProps {
   searchQuery: string;
 }
 
-type SortField = 'name' | 'current_price' | 'price_change_percentage_24h' | 'market_cap' | 'total_volume' | 'circulating_supply';
+type SortField = 'name' | 'current_price' | 'price_change_percentage_24h' | 'market_cap' | 'total_volume' | 'circulating_supply' | 'market_cap_rank';
 type SortDirection = 'asc' | 'desc';
 
 const TableContainer = styled.div`
@@ -172,6 +172,9 @@ const CryptoTable: React.FC<CryptoTableProps> = ({ data, searchQuery }) => {
         case 'circulating_supply':
           comparison = a.circulating_supply - b.circulating_supply;
           break;
+        case 'market_cap_rank':
+          comparison = a.market_cap_rank - b.market_cap_rank;
+          break;
         default:
           comparison = 0;
       }
@@ -192,6 +195,10 @@ const CryptoTable: React.FC<CryptoTableProps> = ({ data, searchQuery }) => {
       <Table>
         <thead>
           <tr>
+            <Th width="5%" sortable onClick={() => handleSort('market_cap_rank')}>
+              #
+              <SortIcon active={sortField === 'market_cap_rank'} direction={sortDirection}>↑</SortIcon>
+            </Th>
             <Th width="15%" sortable onClick={() => handleSort('name')}>
               Moeda
               <SortIcon active={sortField === 'name'} direction={sortDirection}>↑</SortIcon>
@@ -221,6 +228,7 @@ const CryptoTable: React.FC<CryptoTableProps> = ({ data, searchQuery }) => {
         <tbody>
           {sortedData.map((crypto) => (
             <Tr key={crypto.id}>
+              <Td>{crypto.market_cap_rank}</Td>
               <Td>
                 <CoinCell>
                   <img src={crypto.image} alt={crypto.name} />
