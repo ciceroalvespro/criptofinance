@@ -2,66 +2,78 @@ import { useState, useEffect } from 'react';
 
 interface CryptoData {
   id: string;
-  symbol: string;
   name: string;
+  symbol: string;
   current_price: number;
   market_cap: number;
   market_cap_rank: number;
-  price_change_percentage_24h: number;
   total_volume: number;
+  price_change_percentage_24h: number;
   image: string;
+  market_cap_change_24h: number;
+  total_volume_change_24h: number;
+  circulating_supply: number;
 }
 
-const staticCryptoData: CryptoData[] = [
-  {
-    id: 'bitcoin',
-    symbol: 'btc',
-    name: 'Bitcoin',
-    current_price: 45000,
-    market_cap: 850000000000,
-    market_cap_rank: 1,
-    price_change_percentage_24h: 2.5,
-    total_volume: 25000000000,
-    image: 'https://assets.coingecko.com/coins/images/1/small/bitcoin.png'
-  },
-  {
-    id: 'ethereum',
-    symbol: 'eth',
-    name: 'Ethereum',
-    current_price: 2500,
-    market_cap: 300000000000,
-    market_cap_rank: 2,
-    price_change_percentage_24h: -1.2,
-    total_volume: 15000000000,
-    image: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png'
-  },
-  {
-    id: 'binancecoin',
-    symbol: 'bnb',
-    name: 'Binance Coin',
-    current_price: 320,
-    market_cap: 50000000000,
-    market_cap_rank: 3,
-    price_change_percentage_24h: 0.8,
-    total_volume: 8000000000,
-    image: 'https://assets.coingecko.com/coins/images/825/small/bnb-icon2_2x.png'
-  }
-];
-
 export const useCryptoData = () => {
-  const [cryptoData, setCryptoData] = useState<CryptoData[]>([]);
+  const [data, setData] = useState<CryptoData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Simular um delay de carregamento
-    const timer = setTimeout(() => {
-      setCryptoData(staticCryptoData);
-      setLoading(false);
-    }, 1000);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
 
-    return () => clearTimeout(timer);
+        const response = await fetch(
+          'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&sparkline=false&locale=pt',
+          {
+            headers: {
+              'Accept': 'application/json'
+            }
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error('Erro ao buscar dados');
+        }
+
+        const result = await response.json();
+
+        if (!Array.isArray(result)) {
+          throw new Error('Formato de dados inválido');
+        }
+
+        const formattedData = result.map((coin: any) => ({
+          id: coin.id,
+          name: coin.name,
+          symbol: coin.symbol.toUpperCase(),
+          current_price: coin.current_price,
+          market_cap: coin.market_cap,
+          market_cap_rank: coin.market_cap_rank,
+          total_volume: coin.total_volume,
+          price_change_percentage_24h: coin.price_change_percentage_24h || 0,
+          image: coin.image,
+          market_cap_change_24h: coin.market_cap_change_24h || 0,
+          total_volume_change_24h: coin.total_volume_change_24h || 0,
+          circulating_supply: coin.circulating_supply || 0
+        }));
+
+        setData(formattedData);
+      } catch (err) {
+        console.error('Erro ao buscar dados de criptomoedas:', err);
+        setError('Erro ao carregar dados do mercado');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+    const interval = setInterval(fetchData, 60000); // Atualiza a cada 1 minuto
+
+    return () => clearInterval(interval);
   }, []);
 
-  return { cryptoData, loading, error };
+  return { data, loading, error };
 }; 

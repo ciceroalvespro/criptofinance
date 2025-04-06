@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { MarketOverviewCards } from '../components/market/MarketOverviewCards';
-import { SearchBar } from '../components/market/SearchBar';
-import { CryptoTable } from '../components/market/CryptoTable';
 import { useCryptoData } from '../hooks/useCryptoData';
 import { useMarketStats } from '../hooks/useMarketStats';
 import { useFearGreedIndex } from '../hooks/useFearGreedIndex';
+import CryptoTable from '../components/market/CryptoTable';
+import MarketOverviewCards from '../components/market/MarketOverviewCards';
+import SearchBar from '../components/market/SearchBar';
+import Navbar from '../components/Navbar';
 
 const MarketContainer = styled.div`
   padding: 0;
@@ -28,48 +29,24 @@ const ContentContainer = styled.div`
 `;
 
 const MarketTitle = styled.h1`
-  color: #fff;
   font-size: 2.5rem;
   margin-bottom: 2rem;
+  color: #fff;
   text-align: center;
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-`;
-
-const ErrorMessage = styled.div`
-  background: rgba(255, 77, 77, 0.2);
-  border: 1px solid rgba(255, 77, 77, 0.3);
-  color: #ff4d4d;
-  padding: 1.5rem;
-  border-radius: 12px;
-  margin-bottom: 2rem;
-  text-align: center;
-  font-weight: 500;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const LoadingContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 50vh;
-  color: #fff;
-  gap: 1.5rem;
-  text-align: center;
-`;
-
-const LoadingText = styled.div`
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
+  align-items: center;
+  min-height: 400px;
 `;
 
 const LoadingSpinner = styled.div`
   width: 50px;
   height: 50px;
-  border: 4px solid rgba(255, 255, 255, 0.1);
-  border-left-color: #ff6b00;
+  border: 5px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #ff6b00;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 
@@ -80,49 +57,48 @@ const LoadingSpinner = styled.div`
   }
 `;
 
+const ErrorMessage = styled.div`
+  color: #ff4d4d;
+  text-align: center;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-size: 1rem;
+  background: rgba(255, 77, 77, 0.1);
+  border-radius: 8px;
+`;
+
 const Market: React.FC = () => {
+  const { data: cryptoData, loading: cryptoLoading, error: cryptoError } = useCryptoData();
+  const { stats: marketStats, loading: statsLoading, error: statsError } = useMarketStats();
+  const { data: fearGreedData, loading: fearGreedLoading, error: fearGreedError } = useFearGreedIndex();
   const [searchQuery, setSearchQuery] = useState('');
-  const { cryptoData, loading: cryptoLoading, error: cryptoError } = useCryptoData();
-  const { marketStats, loading: statsLoading, error: statsError } = useMarketStats();
-  const { fearGreedData, loading: fearGreedLoading, error: fearGreedError } = useFearGreedIndex();
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
   };
 
-  const filteredCryptoData = cryptoData.filter(crypto => 
-    crypto.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    crypto.symbol.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Só mostra loading se todos os dados estiverem carregando
+  const loading = cryptoLoading && statsLoading && fearGreedLoading;
 
-  const isLoading = cryptoLoading || statsLoading || fearGreedLoading;
-  const hasError = cryptoError || statsError || fearGreedError;
-
-  if (isLoading) {
+  if (loading) {
     return (
       <MarketContainer>
+        <Navbar />
         <LoadingContainer>
           <LoadingSpinner />
-          <LoadingText>Carregando dados do mercado...</LoadingText>
         </LoadingContainer>
-      </MarketContainer>
-    );
-  }
-
-  if (hasError) {
-    return (
-      <MarketContainer>
-        <ErrorMessage>
-          {cryptoError || statsError || fearGreedError}
-        </ErrorMessage>
       </MarketContainer>
     );
   }
 
   return (
     <MarketContainer>
+      <Navbar />
       <ContentContainer>
         <MarketTitle>Mercado de Criptomoedas</MarketTitle>
+        
+        {fearGreedError && <ErrorMessage>{fearGreedError}</ErrorMessage>}
+        {cryptoError && <ErrorMessage>{cryptoError}</ErrorMessage>}
         
         <MarketOverviewCards 
           marketCap={marketStats?.total_market_cap}
@@ -134,10 +110,12 @@ const Market: React.FC = () => {
         <SearchBar onSearch={handleSearch} />
       </ContentContainer>
 
-      <CryptoTable 
-        data={filteredCryptoData}
-        searchQuery={searchQuery}
-      />
+      {cryptoData && cryptoData.length > 0 && (
+        <CryptoTable 
+          data={cryptoData}
+          searchQuery={searchQuery}
+        />
+      )}
     </MarketContainer>
   );
 };

@@ -219,7 +219,7 @@ const Navbar: React.FC = () => {
             <NavLink to="/" onClick={handleScrollToTop}>Início</NavLink>
             <NavLink to="/market">Mercado</NavLink>
             <NavLink to="/portfolio">Portfólio</NavLink>
-            <NavLink to="/onchain">Análise OnChain</NavLink>
+            <NavLink to="/onchain">OnChain</NavLink>
           </NavLinks>
           <HamburgerButton onClick={toggleMenu} aria-label="Menu">
             {isMenuOpen ? '✕' : '☰'}
@@ -231,7 +231,7 @@ const Navbar: React.FC = () => {
         <MobileNavLink to="/" onClick={(e) => { handleScrollToTop(e); closeMenu(); }}>Início</MobileNavLink>
         <MobileNavLink to="/market" onClick={closeMenu}>Mercado</MobileNavLink>
         <MobileNavLink to="/portfolio" onClick={closeMenu}>Portfólio</MobileNavLink>
-        <MobileNavLink to="/onchain" onClick={closeMenu}>Análise OnChain</MobileNavLink>
+        <MobileNavLink to="/onchain" onClick={closeMenu}>OnChain</MobileNavLink>
       </MobileMenu>
     </>
   );
